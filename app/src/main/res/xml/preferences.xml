@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="check_box_preference_1"
+        android:title="Check box preference" />
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/rounding_keys"
+        android:entryValues="@array/round_values"
+        android:key="list_preference_1"
+        android:title="List preference" />
+</PreferenceScreen>
