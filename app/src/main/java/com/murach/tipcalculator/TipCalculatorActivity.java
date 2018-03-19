@@ -31,6 +31,7 @@ public class TipCalculatorActivity extends Activity
     private Button   percentDownButton;
     private TextView tipTextView;
     private TextView totalTextView;
+    private TextView nameTextView;
 
     // define the SharedPreferences object
     private SharedPreferences savedValues;
@@ -63,6 +64,7 @@ public class TipCalculatorActivity extends Activity
         percentDownButton = (Button) findViewById(R.id.percentDownButton);
         tipTextView = (TextView) findViewById(R.id.tipTextView);
         totalTextView = (TextView) findViewById(R.id.totalTextView);
+        nameTextView = (TextView) findViewById(R.id.nameTextView);
 
         // set the listeners
         billAmountEditText.setOnEditorActionListener(this);
