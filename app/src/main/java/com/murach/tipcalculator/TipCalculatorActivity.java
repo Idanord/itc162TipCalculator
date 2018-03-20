@@ -51,6 +51,7 @@ public class TipCalculatorActivity extends Activity
     //setup the preferences
     private boolean rememberTipPercent = true;
     private int rounding = Round_NONE;
+    private  String setName = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,11 @@ public class TipCalculatorActivity extends Activity
     public void onResume() {
         super.onResume();
 
+        //get prefs
+        rememberTipPercent = savedValues.getBoolean("pref_forget_percent", true);
+        rounding = Integer.parseInt(savedValues.getString("pref_rounding", "0"));
+        setName = savedValues.getString("set_name", "Set Name");
+
         // get the instance variables
         billAmountString = savedValues.getString("billAmountString", "");
         tipPercent = savedValues.getFloat("tipPercent", 0.15f);
@@ -136,9 +142,27 @@ public class TipCalculatorActivity extends Activity
             billAmount = Float.parseFloat(billAmountString);
         }
 
+        //declare local variables
+        float tipAmount = 0;
+        float totalAmount = 0;
+        float tipPercentdisplay = 0;
+
+        if(rounding == Round_NONE){
+            tipAmount = billAmount * tipPercent;
+            totalAmount = billAmount + tipAmount;
+        } else if (rounding == ROUND_TIP){
+            tipAmount = StrictMath.round(billAmount * tipPercent);
+            totalAmount = billAmount + tipAmount;
+            tipPercentdisplay = tipAmount / billAmount;
+        } else if (rounding == ROUND_TOTAL){
+            float tipNotRounded = billAmount * tipPercent;
+            tipAmount = tipNotRounded;
+            totalAmount = StrictMath.round(billAmount + tipNotRounded);
+        }
+
         // calculate tip and total 
-        float tipAmount = billAmount * tipPercent;
-        float totalAmount = billAmount + tipAmount;
+        //float tipAmount = billAmount * tipPercent;
+        //float totalAmount = billAmount + tipAmount;
 
         // display the other results with formatting
         NumberFormat currency = NumberFormat.getCurrencyInstance();
@@ -147,6 +171,8 @@ public class TipCalculatorActivity extends Activity
 
         NumberFormat percent = NumberFormat.getPercentInstance();
         percentTextView.setText(percent.format(tipPercent));
+
+
 
         Log.d(TAG, "calculateAndDisplay method executed");
     }
