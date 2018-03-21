@@ -51,7 +51,7 @@ public class TipCalculatorActivity extends Activity
     //setup the preferences
     private boolean rememberTipPercent = true;
     private int rounding = Round_NONE;
-    private  String setName = "";
+    private String setName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,7 +112,6 @@ public class TipCalculatorActivity extends Activity
         //get prefs
         rememberTipPercent = savedValues.getBoolean("pref_forget_percent", true);
         rounding = Integer.parseInt(savedValues.getString("pref_rounding", "0"));
-        setName = savedValues.getString("set_name", "Set Name");
 
         // get the instance variables
         billAmountString = savedValues.getString("billAmountString", "");
@@ -120,6 +119,7 @@ public class TipCalculatorActivity extends Activity
 
         // set the bill amount on its widget
         billAmountEditText.setText(billAmountString);
+        nameTextView.setText(setName);
 
         // calculate and display
         calculateAndDisplay();
@@ -171,7 +171,6 @@ public class TipCalculatorActivity extends Activity
 
         NumberFormat percent = NumberFormat.getPercentInstance();
         percentTextView.setText(percent.format(tipPercent));
-
 
 
         Log.d(TAG, "calculateAndDisplay method executed");
